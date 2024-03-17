@@ -1,21 +1,23 @@
-#
-from typing import List
+# Класс Category: категории товаров
+# Класс Product: сами товары и их описание
 
 
 class Category:
     title: str  # название категории
     description: str  # описание категории
     goods: list  # список товаров в категории
-    goods_in_category = 0  # количество товаров в категории
-    unique_goods = 0  # количество уникальных товаров
+    quantity_category = 0  # общее количество категорий
+    unique_goods = set()  # все товары без повторений
+    quantity_unique_goods = len(unique_goods)  # общее количество уникальных товаров
 
     def __init__(self, title, description, goods):
         self.title = title
         self.description = description
         self.goods = goods
-        self.goods_in_category = 1
 
-        Category.unique_goods += 1
+        Category.unique_goods.update(goods)
+        Category.quantity_unique_goods = len(Category.unique_goods)
+        Category.quantity_category += 1
 
 
 class Product:
@@ -29,5 +31,7 @@ class Product:
         self.description = description
         self.price = price
         self.stock = stock
+
+
 
 
