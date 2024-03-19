@@ -6,6 +6,7 @@ class Category:
     title: str  # название категории
     description: str  # описание категории
     goods: list  # список товаров в категории
+    unique_category = set()  # множество для подсчёта категории, чтобы не повторялись категории
     quantity_category = 0  # общее количество категорий
     unique_goods = set()  # все товары без повторений
     quantity_unique_goods = len(unique_goods)  # общее количество уникальных товаров
@@ -15,9 +16,10 @@ class Category:
         self.description = description
         self.goods = goods
 
-        Category.unique_goods.update(goods)
+        Category.unique_goods.add(goods)
         Category.quantity_unique_goods = len(Category.unique_goods)
-        Category.quantity_category += 1
+        Category.unique_category.add(title)
+        Category.quantity_category = len(Category.unique_category)
 
 
 class Product:
@@ -31,7 +33,3 @@ class Product:
         self.description = description
         self.price = price
         self.stock = stock
-
-
-
-
