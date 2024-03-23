@@ -22,7 +22,7 @@ class Category:
     @property
     def goods(self):
         result = (
-            f'{product.name}, {product.price} руб. Остаток: {product.stock} шт.'
+            f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.'
             for product in self.__goods
         )
         return '\n'.join(result)
