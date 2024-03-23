@@ -15,18 +15,16 @@ def category():
     return Category(
         file[0]['name'],
         file[0]['description'],
-        file[0]['products'][0]['name']
+        file[0]['products']
     )
 
 
-def test_category(category):
+def test_init_category(category):
     assert category.category_name == "Смартфоны"
     assert category.category_description == "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни"
-    assert category.goods == "Samsung Galaxy C23 Ultra"
     assert category.quantity_category == 1
-    assert category.unique_goods == {"Samsung Galaxy C23 Ultra"}
-    assert category.quantity_unique_goods == 1
-    assert category.unique_category == {"Смартфоны"}
+    assert category.quantity_unique_goods == 3
+
 
 
 @pytest.fixture()
@@ -39,18 +37,25 @@ def product():
     )
 
 
-def test_product(product):
+def test_init_product(product):
     assert product.name == "55\" QLED 4K"
     assert product.description == "Фоновая подсветка"
     assert product.price == 123000.0
-    assert product.stock == 7
+    assert product.quantity == 7
 
 
-def test_from_dict():
-    """Тест на создание объекта класса Product из словаря с данными о товаре"""
-    expected = {"name": "Смартфоны", "description": "средство", "price": 12000.0, "stock": 1}
-    assert Product.from_dict("Смартфоны", "средство", 12000.0, 1) == expected
-    assert type(Product.from_dict("Смартфоны", "средство", 12000.0, 1)) == dict
+
+@pytest.fixture()
+def dictionary():
+    return Product.from_dict(file[0]['products'][0])
+
+def test_class_product(dictionary):
+    """Тест на класс-метод в классе Product """
+    assert dictionary.name == "Samsung Galaxy C23 Ultra"
+    assert dictionary.description == "256GB, Серый цвет, 200MP камера"
+    assert dictionary.price == 180000.0
+    assert dictionary.quantity == 5
+
 
 
 

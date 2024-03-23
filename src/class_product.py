@@ -4,24 +4,18 @@ class Product:
     name: str  # название товара
     description: str  # описание товара
     price: float  # цена товара
-    stock: int  # количество товара в наличии
+    quantity: int  # количество товара в наличии
 
-    def __init__(self, name, description, price, stock):
+    def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.__price = price
-        self.stock = stock
+        self.quantity = quantity
 
     @classmethod
-    def from_dict(cls, name, description, price, stock):
-        """ Создание объекта класса Product из словаря с данными о товаре"""
-        new_dict = {
-            'name': name,
-            'description': description,
-            'price': price,
-            'stock': stock
-        }
-        return new_dict
+    def from_dict(cls, dictionary):
+        """Создаёт товар и возвращает объект, который можно добавлять в список товаров"""
+        return cls(**dictionary)
 
     @property
     def price(self):
