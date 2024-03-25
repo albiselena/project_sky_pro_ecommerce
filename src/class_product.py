@@ -29,3 +29,12 @@ class Product:
             print('Цена товара должна быть больше 0')
         else:
             self.__price = new_price
+
+    def __str__(self):
+        """Метод для вывода информации о товаре"""
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        """Метод для сложения цен двух видов товара в зависимости от их количества,
+        результатом является сумма количества товаров (quantity) умноженных на цену (price)"""
+        return self.__price * self.quantity + other.__price * other.quantity
