@@ -21,8 +21,36 @@ class Category:
 
     @property
     def goods(self):
-        result = (
-            f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.'
-            for product in self.__goods
-        )
-        return '\n'.join(result)
+        """Геттер складывающий продукты из класса Product в атрибут goods класса Category,
+        и возвращающий это всё строкой класса Product"""
+        list_goods = []
+        for product in self.__goods:
+            list_goods.append(str(product))
+        return list_goods
+
+    def __len__(self):
+        """Метод для подсчёта количества товаров в категории для вывода в __str__"""
+        stock = 0
+        for product in self.__goods:
+            stock += product.quantity
+        return stock
+
+
+    def __str__(self):
+        return f'{self.category_name}, количество продуктов: {len(self)} шт.'
+
+
+class IterCategory:
+    def __init__(self, category):
+        self.category = category
+
+    def __iter__(self):
+        self.current_value = -1
+        return self
+
+    def __next__(self):
+        self.current_value += 1
+        if self.current_value < len(self.category):
+            return self.category[self.current_value]
+        else:
+            raise StopIteration
